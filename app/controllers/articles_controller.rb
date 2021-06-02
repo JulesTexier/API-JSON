@@ -55,15 +55,15 @@ class ArticlesController < ApplicationController
 
     def authenticate_user
       unless current_user
-        flash[:danger] = "Please log in."
+        render json: { message: "Impossible, tu n'es pas connecté" }
+
       end
     end
 
     def owner
       @article = Article.find(params[:id])
       unless @article.user == current_user
-        flash[:danger] = "Action."
-        redirect_to root_path
+        render json: { message: "Impossible, tu n'es pas owner" }
       end
     end
 end
